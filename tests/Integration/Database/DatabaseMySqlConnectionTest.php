@@ -25,8 +25,8 @@ class DatabaseMySqlConnectionTest extends TestCase
         $app['config']->set('database.connections.testbench', [
             'driver' => 'mysql',
             'host' => env('DB_HOST', '127.0.0.1'),
-            'username' => 'forge',
-            'password' => 'forge',
+            'username' => 'root',
+            'password' => '',
             'database' => 'forge',
             'prefix' => '',
         ]);
