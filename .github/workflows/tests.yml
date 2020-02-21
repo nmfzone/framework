@@ -12,13 +12,12 @@ jobs:
     runs-on: ubuntu-latest
     services:
       mysql:
-        image: mysql:8.0
+        image: mysql:5.7
+        env:
+          MYSQL_ALLOW_EMPTY_PASSWORD: yes
+          MYSQL_DATABASE: forge
         ports:
           - 3306
-        env:
-          MYSQL_ALLOW_EMPTY_PASSWORD: "true"
-          MYSQL_DATABASE: forge
-          MYSQL_ROOT_PASSWORD: ""
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
       redis:
         image: redis
@@ -60,3 +59,4 @@ jobs:
         run: vendor/bin/phpunit --verbose
         env:
           CI: ${{ secrets.CI }}
+          DB_PORT: ${{ job.services.mysql.ports[3306] }}
