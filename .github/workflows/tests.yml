@@ -16,10 +16,9 @@ jobs:
         ports:
           - 3306
         env:
-          MYSQL_USER: user
-          MYSQL_PASSWORD: password
+          MYSQL_ALLOW_EMPTY_PASSWORD: 1
           MYSQL_DATABASE: forge
-          MYSQL_ROOT_PASSWORD:
+          MYSQL_ROOT_PASSWORD: ""
       redis:
         image: redis
         ports:
