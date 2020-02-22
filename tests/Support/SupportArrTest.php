@@ -377,6 +377,55 @@ class SupportArrTest extends TestCase
         $this->assertFalse(Arr::isAssoc(['a', 'b']));
     }
 
+    public function testMergeDeep()
+    {
+        $first = [
+            'name' => 'Desk',
+            'price' => 100,
+            'orders' => [
+                [
+                    'id' => 1,
+                    'name' => 'John Doe',
+                ],
+            ],
+            'addresses' => [
+                [
+                    'id' => 1,
+                    'location' => 'Los Angeles',
+                ],
+            ],
+        ];
+
+        $second = [
+            'name' => 'Desk',
+            'price' => 200,
+            'orders' => [
+                [
+                    'id' => 2,
+                    'name' => 'Jane Doe',
+                ],
+            ],
+            'addresses' => 'Los Angeles',
+        ];
+
+        $result = Arr::mergeDeep($first, $second);
+        $this->assertEquals([
+            'name' => 'Desk',
+            'price' => 200,
+            'orders' => [
+                [
+                    'id' => 1,
+                    'name' => 'John Doe',
+                ],
+                [
+                    'id' => 2,
+                    'name' => 'Jane Doe',
+                ],
+            ],
+            'addresses' => 'Los Angeles',
+        ], $result);
+    }
+
     public function testOnly()
     {
         $array = ['name' => 'Desk', 'price' => 100, 'orders' => 10];
