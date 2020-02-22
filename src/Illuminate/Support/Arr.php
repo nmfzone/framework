@@ -358,6 +358,32 @@ class Arr
     }
 
     /**
+     * Deeply merge the arrays.
+     *
+     * @param  array  $first
+     * @param  array  $second
+     * @return array
+     */
+    public static function mergeDeep(array $first, array $second)
+    {
+        $result = [];
+
+        foreach (func_get_args() as $array) {
+            foreach ($array as $key => $value) {
+                if (is_numeric($key)) {
+                    $result[] = $value;
+                } elseif (isset($result[$key]) && is_array($result[$key]) && is_array($value)) {
+                    $result[$key] = static::mergeDeep($result[$key], $value);
+                } else {
+                    $result[$key] = $value;
+                }
+            }
+        }
+
+        return $result;
+    }
+
+    /**
      * Get a subset of the items from the given array.
      *
      * @param  array  $array
